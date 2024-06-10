@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Used with ble_uart_echo_test.py. Transmits "echo" to the UARTService and receives it back.
+Used with ble_file_transfer_stub_server.py. Tests listing folders via FileTransferClient.
 """
 
 import sys
