@@ -6,6 +6,7 @@ Used with ble_file_transfer_stub_server.py. Tests file operations via FileTransf
 """
 
 import binascii
+import gc
 import random
 import time
 
@@ -163,16 +164,19 @@ while True:
 
                 # Test larger files
                 print("Testing larger files")
-                large_1k = bytearray(1024)
-                for i, _ in enumerate(large_1k):
-                    large_1k[i] = random.randint(0, 255)
-                client = _write(client, "/random.txt", large_1k)
-                contents = _read(client, "/random.txt")
-                if large_1k != contents:
-                    print(binascii.hexlify(large_1k))
-                    print(binascii.hexlify(contents))
-                    raise RuntimeError("large contents don't match!")
-                print()
+                for s in [1024, 2048, 3072, 4096, 16*1024, 50*1024]:
+                    large_data = bytearray(s)
+                    for i, _ in enumerate(large_data):
+                        large_1k[i] = random.randint(0, 255)
+                    client = _write(client, "/random.txt", large_1k)
+                    contents = _read(client, "/random.txt")
+                    if large_1k != contents:
+                        print(binascii.hexlify(large_data))
+                        print(binascii.hexlify(contents))
+                        raise RuntimeError("large contents don't match!")
+                    print()
+                    gc.collect()
+                
             time.sleep(20)
     except ConnectionError as e:
         pass
