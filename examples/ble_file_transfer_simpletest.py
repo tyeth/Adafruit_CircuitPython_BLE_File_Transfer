@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Used with ble_file_transfer_stub_server.py. Tests fule operations via FileTransferClient.
+Used with ble_file_transfer_stub_server.py. Tests file operations via FileTransferClient.
 """
 
 import binascii
